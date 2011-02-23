@@ -63,7 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
+    <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\ContextMenu.cs" />
     <Compile Include="Mayor.cs" />
     <Compile Include="MayorSession.cs" />
     <Compile Include="NotifierForm.cs">
