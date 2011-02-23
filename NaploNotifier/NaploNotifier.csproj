@@ -64,19 +64,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Context.cs" />
-    <Compile Include="Context\ContextMenu.cs" />
+    <Compile Include="Context\Icon.cs" />
+    <Compile Include="Context\Data.cs" />
+    <Compile Include="Context\Misc.cs" />
+    <Compile Include="Context\Notification.cs" />
+    <Compile Include="Context\Settings.cs" />
+    <Compile Include="Context\Update.cs" />
     <Compile Include="Mayor.cs" />
     <Compile Include="MayorSession.cs" />
-    <Compile Include="NotifierForm.cs">
+    <Compile Include="NotificationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NotifierForm.Designer.cs">
-      <DependentUpon>NotifierForm.cs</DependentUpon>
+    <Compile Include="NotificationForm.Designer.cs">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="NotifierForm.resx">
-      <DependentUpon>NotifierForm.cs</DependentUpon>
+    <EmbeddedResource Include="NotificationForm.resx">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

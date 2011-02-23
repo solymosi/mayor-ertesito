@@ -15,6 +15,11 @@ namespace NaploNotifier
             Application.SetCompatibleTextRenderingDefault(false);
             Guardian.LaunchApplication();
         }
+
+        public static void Exit()
+        {
+            Environment.Exit(0);
+        }
     }
 
     static class Guardian
@@ -34,8 +39,8 @@ namespace NaploNotifier
 
         public static void Crashed(Exception Exception)
         {
-            MessageBox.Show("Hoppá! A MaYoR értesítő lefagyott. Kérlek, CTRL+C-vel másold ki ezt a hibaüzenetet és küldd el nekem a tartalmát a http://solymosi.eu oldal alján található email címre. Köszönöm!\r\nA hiba részletei:\r\n" + Exception.Message + "\r\n" + Exception.StackTrace, Application.ProductName, 0, MessageBoxIcon.Error);
-            Environment.Exit(0);
+            Context.ErrorMessage("Jaj! A MaYoR értesítő lefagyott.\r\nRészletek kockáknak:\r\n" + Exception.Message + "\r\n" + Exception.StackTrace);
+            Program.Exit();
         }
     }
 }

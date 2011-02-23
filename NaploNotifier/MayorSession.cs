@@ -43,15 +43,15 @@ namespace NaploNotifier
             finally { p.Close(); }
         }
 
-        public string CreateURL(string Page, string Sub, string F, string Parameters, string Policy, string Skin)
+        public string CreateURL(string Page, string Sub, string F, string Parameters, string Policy, string Skin, bool IncludeSessionId)
         {
-            return Mayor.Settings.BaseAddress + "?page=" + Page + "&sub=" + Sub + "&f=" + F + "&" + Parameters + "&sessionID=" + SessionID + "&policy=" + Policy + "&skin=" + Skin;
+            return Mayor.Settings.BaseAddress + "?page=" + Page + "&sub=" + Sub + "&f=" + F + "&" + Parameters + (IncludeSessionId ? "&sessionID=" + SessionID : "") + "&policy=" + Policy + "&skin=" + Skin;
         }
 
         public HttpWebRequest CreateRequest(string Page, string Sub, string F, string Parameters, string Policy, string Method, string PostData)
         {
             ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback(delegate { return true; });
-            HttpWebRequest r = (HttpWebRequest)HttpWebRequest.Create(CreateURL(Page, Sub, F, Parameters, Policy, "ajax"));
+            HttpWebRequest r = (HttpWebRequest)HttpWebRequest.Create(CreateURL(Page, Sub, F, Parameters, Policy, "ajax", true));
             r.Timeout = -1;
             r.ProtocolVersion = new Version(1, 0);
             r.Method = Method;

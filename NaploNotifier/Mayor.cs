@@ -203,6 +203,16 @@ namespace NaploNotifier
             }
             return "";
         }
+
+        internal static void RunUpdate()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void RunUpdate(object Parameter)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [Serializable()]

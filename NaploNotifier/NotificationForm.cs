@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace NaploNotifier
 {
-    public partial class NotifierForm : Form
+    public partial class NotificationForm : Form
     {
         const int AW_SLIDE = 0X40000;
         const int AW_HIDE = 0X10000;
@@ -25,7 +25,7 @@ namespace NaploNotifier
         [DllImport("user32")]
         static extern bool AnimateWindow(IntPtr hwnd, int time, int flags);
 
-        public NotifierForm()
+        public NotificationForm()
         {
             InitializeComponent();
         }

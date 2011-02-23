@@ -12,118 +12,83 @@ namespace NaploNotifier
 {
     public partial class Context : ApplicationContext
     {
-        System.Timers.Timer CheckTimer = new System.Timers.Timer(120000);
-
-        WindowsFormsSynchronizationContext SC;
+        System.Timers.Timer UpdateTimer;
+        WindowsFormsSynchronizationContext MainSynchronizationContext;
 
         public Context()
         {
-            SC = new WindowsFormsSynchronizationContext();
+            MainSynchronizationContext = new WindowsFormsSynchronizationContext();
+            ThreadExit += new EventHandler(Context_ThreadExit);
 
-            try { Mayor.LoadSettings(); }
-            catch
-            {
-                try { this.EditSettings(); }
-                catch { Environment.Exit(0); }
-            }
+            LoadSettings();
+            LoadData();
 
+            Mayor.Updated += new Mayor.UpdateDelegate(UpdateCallback);
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
-            {
-                try { Mayor.LoadChanges(); }
-                catch { Mayor.UpdateOsztalyozo(true); }
-                try { Mayor.LoadOsztalyozo(); }
-                catch { Mayor.UpdateOsztalyozo(true); }
-                CheckTimer_Tick(null, null);
-            }));
+            RunUpdate();
 
-            Mayor.OsztalyozoUpdated += new Mayor.OsztalyozoUpdateDelegate(Mayor_OsztalyozoUpdated);
-            CheckTimer.Elapsed += new System.Timers.ElapsedEventHandler(CheckTimer_Tick);
-            CheckTimer.Start();
+            UpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(CheckTimer_Tick);
+            UpdateTimer.Start();
         }
 
-        void EditSettings()
+        void OpenNaplo_Click(object sender, EventArgs e)
         {
-            SettingsForm SF = new SettingsForm();
-            SF.Domain.Text = Mayor.Settings.Domain;
-            SF.User.Text = Mayor.Settings.User;
+            Process.Start(Mayor.Session.CreateURL("naplo", "osztalyozo", "diak", "", "private", "classic", false));
+        }
 
-            if (SF.ShowDialog() == DialogResult.OK)
-            {
-                Mayor.Settings.Domain = SF.Domain.Text;
-                Mayor.Settings.User = SF.User.Text;
-                Mayor.Settings.Password = SF.Pass.Text;
-                Mayor.SaveSettings();
-            }
-            else { throw new OperationCanceledException(); }
+        void RecentChanges_Click(object sender, EventArgs e)
+        {
+            ShowNotification(Mayor.RecentChanges);
+        }
+
+        void CheckNow_Click(object sender, EventArgs e)
+        {
+            RunUpdate();
+        }
+
+        void AutoCheck_Click(object sender, EventArgs e)
+        {
+            Mayor.Settings.AutoUpdate = !Mayor.Settings.AutoUpdate;
+            mAutoCheck.Checked = Mayor.Settings.AutoUpdate;
+            SaveSettings();
+        }
+
+        void Settings_Click(object sender, EventArgs e)
+        {
+            EditSettings();
+        }
+
+        void Exit_Click(object sender, EventArgs e)
+        {
+            ExitThread();
         }
 
         void CheckTimer_Tick(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (Mayor.Settings.CheckAutomatically)
+            if (Mayor.Settings.AutoUpdate)
             {
-                Mayor.UpdateOsztalyozo();
+                RunUpdate();
             }
-        }
-
-        void ContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            CheckNow.Text = (Mayor.OsztalyozoUpdating ? "Ellenőrzés folyamatban..." : "Ellenőrzés most");
-            CheckNow.Enabled = !Mayor.OsztalyozoUpdating;
-
-            LastTen.Text = (Mayor.Changes.Count == 0 ? "Nincs változás" : "Legutóbbi változások");
-            LastTen.Enabled = (Mayor.Changes.Count > 0);
         }
 
         void Context_ThreadExit(object sender, EventArgs e)
         {
-            Icon.Visible = false;
-        }
-
-        void OpenWebsite(object sender, EventArgs e)
-        {
-            Process.Start(Mayor.Session.CreateURL("naplo", "osztalyozo", "diak", "", "private", "classic"));
+            RemoveMenu();
         }
 
         void ShowRecentChanges(object sender, EventArgs e)
         {
             Mayor.SortChanges();
             List<NoteChange> Recent = Mayor.Changes.GetRange(0, Math.Min(5, Mayor.Changes.Count));
-            ShowNotifier(Recent);
+            ShowNotification(Recent);
         }
 
-        public NotifierForm NF;
-
-        void Mayor_OsztalyozoUpdated(List<NoteChange> Changes)
+        void UpdateCallback(List<NoteChange> Changes)
         {
             if (Changes.Count > 0) { PlayNotificationSound(); }
-            ShowNotifier(Changes);
+            ShowNotification(Changes);
             Mayor.SaveChanges();
         }
 
-        void ShowNotifier(List<NoteChange> Changes)
-        {
-            SC.Send(new SendOrPostCallback(delegate
-            {
-                if (Changes.Count == 0) { return; }
-                if (NF != null && NF.Visible)
-                {
-                    NF.Close();
-                }
-                NF = new NotifierForm();
-                NF.Changes = Changes;
-                NF.Show();
-            }), new object());
-        }
-
-        void PlayNotificationSound()
-        {
-            try
-            {
-                string Path = (string)Registry.GetValue(@"HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MailBeep\.Default", null, "");
-                new System.Media.SoundPlayer(Path).Play();
-            }
-            catch { }
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace NaploNotifier
 {
-    partial class NotifierForm
+    partial class NotificationForm
     {
         /// <summary>
         /// Required designer variable.
