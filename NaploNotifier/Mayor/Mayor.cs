@@ -73,7 +73,7 @@ namespace NaploNotifier
 
             foreach (Note CurrentNote in Notes)
             {
-                if (NewNotes.Where(new Func<Note, bool>(delegate(Note N) { return CurrentNote.Id == N.Id; })).ToList().Count == 0)
+                if (NewNotes.Where(new Func<Note, bool>(delegate(Note N) { return CurrentNote.ID == N.ID; })).ToList().Count == 0)
                 {
                     NewChanges.Add(new Change(CurrentNote, null));
                 }
@@ -81,7 +81,7 @@ namespace NaploNotifier
 
             foreach (Note CurrentNote in NewNotes)
             {
-                if (Notes.Where(new Func<Note, bool>(delegate(Note N) { return CurrentNote.Id == N.Id; })).ToList().Count == 0)
+                if (Notes.Where(new Func<Note, bool>(delegate(Note N) { return CurrentNote.ID == N.ID; })).ToList().Count == 0)
                 {
                     NewChanges.Add(new Change(null, CurrentNote));
                 }
@@ -91,7 +91,7 @@ namespace NaploNotifier
             {
                 foreach (Note OldNote in Notes)
                 {
-                    if (CurrentNote.Id == OldNote.Id && !CurrentNote.Equals(OldNote))
+                    if (CurrentNote.ID == OldNote.ID && !CurrentNote.Equals(OldNote))
                     {
                         NewChanges.Add(new Change(OldNote, CurrentNote));
                         break;

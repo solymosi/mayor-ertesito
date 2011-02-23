@@ -10,15 +10,30 @@ namespace NaploNotifier
     [Serializable()]
     public class Note
     {
-        public int Id;
+        public int ID;
         public string Grade;
         public string Name;
         public NoteType Type;
+        public string FriendlyType
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case NoteType.Kicsi: return "Kis jegy";
+                    case NoteType.Normal: return "Normál jegy";
+                    case NoteType.Dolgozat: return "Dolgozat";
+                    case NoteType.Temazaro: return "Témazáró";
+                    case NoteType.Vizsga: return "Vizsgajegy";
+                }
+                throw new ArgumentException();
+            }
+        }
         public Subject Subject;
 
-        public Note(int Id, string Grade, string Name, NoteType Type)
+        public Note(int ID, string Grade, string Name, NoteType Type)
         {
-            this.Id = Id;
+            this.ID = ID;
             this.Grade = Grade;
             this.Name = Name;
             this.Type = Type;
@@ -26,42 +41,19 @@ namespace NaploNotifier
 
         public static Note Parse(HtmlNode Node)
         {
-            string grade = Node.InnerText.Trim();
-            string name = Node.GetAttributeValue("title", "Névtelen jegy");
-            string href = Node.GetAttributeValue("href", "");
-            Match m = Regex.Match(href, "jegyId=(?<id>[0-9]+)", RegexOptions.IgnoreCase);
-            int id = int.Parse(m.Groups["id"].Value);
-            string tp = Node.GetAttributeValue("class", "jegy2");
-            NoteType type = (NoteType)(int.Parse(tp.Substring(tp.Length - 1, 1)));
-            return new Note(id, grade, name, type);
+            string Grade = Node.InnerText.Trim();
+            string Name = Node.GetAttributeValue("title", "Névtelen jegy");
+            string Href = Node.GetAttributeValue("href", "");
+            Match Match = Regex.Match(Href, "jegyId=(?<id>[0-9]+)", RegexOptions.IgnoreCase);
+            int ID = int.Parse(Match.Groups["id"].Value);
+            string T = Node.GetAttributeValue("class", "jegy2");
+            NoteType Type = (NoteType)(int.Parse(T.Substring(T.Length - 1, 1)));
+            return new Note(ID, Grade, Name, Type);
         }
 
-        public override string ToString()
+        public bool Equals(Note Other)
         {
-            return "[" + Grade.ToString() + "] " + Name + " (" + Type.ToString() + ") [" + Id.ToString() + "]";
-        }
-
-        public bool Equals(Note obj)
-        {
-            return (obj.Id == this.Id && obj.Grade == this.Grade && obj.Type == this.Type);
-        }
-
-        public string BalloonDescription()
-        {
-            return this.Name + "\r\nOsztályzat: " + this.Grade + "\r\nTípus: " + Mayor.FriendlyNoteTypeName(this.Type);
-        }
-
-        public static string FriendlyNoteTypeName(NoteType type)
-        {
-            switch (type)
-            {
-                case NoteType.Kicsi: return "Kis jegy";
-                case NoteType.Normal: return "Normál jegy";
-                case NoteType.Dolgozat: return "Dolgozat";
-                case NoteType.Temazaro: return "Témazáró";
-                case NoteType.Vizsga: return "Vizsgajegy";
-            }
-            return "";
+            return (Other.ID == this.ID && Other.Grade == this.Grade && Other.Type == this.Type);
         }
     }
 
