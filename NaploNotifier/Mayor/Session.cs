@@ -99,9 +99,5 @@ namespace NaploNotifier
         }
     }
 
-    public class InvalidSessionException : Exception { }
-    public class HttpRedirectException : Exception { }
-    public class HttpErrorException : Exception { }
     public class LoginFailedException : Exception { }
-
 }
