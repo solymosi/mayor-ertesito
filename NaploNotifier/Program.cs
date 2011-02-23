@@ -14,19 +14,27 @@ namespace NaploNotifier
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Guardian.LaunchApplication();
+        }
+    }
+
+    static class Guardian
+    {
+        public static void LaunchApplication()
+        {
             try
             {
                 Application.Run(new Context());
             }
-            catch(Exception e)
+            catch (Exception Exception)
             {
-                Lefagyott(e);
+                Crashed(Exception);
             }
         }
 
-        static void Lefagyott(Exception e)
+        public static void Crashed(Exception Exception)
         {
-            MessageBox.Show("Hoppá! A MaYoR értesítő lefagyott. Kérlek, CTRL+C-vel másold ki ezt a hibaüzenetet és küldd el nekem a tartalmát a http://solymosi.eu oldal alján található email címre. Köszönöm!\r\nA hiba részletei:\r\n" + e.Message + "\r\n" + e.StackTrace, Application.ProductName, 0, MessageBoxIcon.Error);
+            MessageBox.Show("Hoppá! A MaYoR értesítő lefagyott. Kérlek, CTRL+C-vel másold ki ezt a hibaüzenetet és küldd el nekem a tartalmát a http://solymosi.eu oldal alján található email címre. Köszönöm!\r\nA hiba részletei:\r\n" + Exception.Message + "\r\n" + Exception.StackTrace, Application.ProductName, 0, MessageBoxIcon.Error);
             Environment.Exit(0);
         }
     }
