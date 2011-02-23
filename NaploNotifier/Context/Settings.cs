@@ -31,12 +31,12 @@ namespace NaploNotifier
         void EditSettings()
         {
             SettingsForm Form = new SettingsForm();
-            Form.Domain.Text = Mayor.Settings.Domain;
+            Form.Domain.Text = Mayor.Settings.ServerDomain;
             Form.User.Text = Mayor.Settings.User;
 
             if (Form.ShowDialog() == DialogResult.OK)
             {
-                Mayor.Settings.Domain = Form.Domain.Text;
+                Mayor.Settings.ServerDomain = Form.Domain.Text;
                 Mayor.Settings.User = Form.User.Text;
                 Mayor.Settings.Password = Form.Password.Text;
                 SaveSettings();

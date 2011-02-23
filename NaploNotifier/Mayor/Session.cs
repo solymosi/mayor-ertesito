@@ -45,7 +45,7 @@ namespace NaploNotifier
 
         public string CreateURL(string Page, string Sub, string F, string Parameters, string Policy, string Skin, bool IncludeSessionId)
         {
-            return Mayor.Settings.BaseAddress + "?page=" + Page + "&sub=" + Sub + "&f=" + F + "&" + Parameters + (IncludeSessionId ? "&sessionID=" + SessionID : "") + "&policy=" + Policy + "&skin=" + Skin;
+            return Mayor.Settings.ServerAddress + "?page=" + Page + "&sub=" + Sub + "&f=" + F + "&" + Parameters + (IncludeSessionId ? "&sessionID=" + SessionID : "") + "&policy=" + Policy + "&skin=" + Skin;
         }
 
         public HttpWebRequest CreateRequest(string Page, string Sub, string F, string Parameters, string Policy, string Method, string PostData)
