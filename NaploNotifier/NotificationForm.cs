@@ -68,28 +68,24 @@ namespace NaploNotifier
             this.Height = (chg.Type == ChangeType.Modified ? 115 : 82);
             this.NewName.Visible = (chg.Type == ChangeType.Modified);
             this.NewNote.Visible = (chg.Type == ChangeType.Modified);
+            Title.Text = chg.Title;
+            Date.Text = chg.Date.ToShortDateString();
             if (chg.Type == ChangeType.Added)
             {
-                Title.Text = chg.Title();
-                Date.Text = chg.Date.ToShortDateString();
-                OldName.Text = chg.NewNote.Name + " (" + Mayor.FriendlyNoteTypeName(chg.NewNote.Type) + ")";
-                OldNote.Text = chg.NewNote.Grade;
+                OldName.Text = chg.New.Name + " (" + chg.New.FriendlyType + ")";
+                OldNote.Text = chg.New.Grade;
             }
             if (chg.Type == ChangeType.Deleted)
             {
-                Title.Text = chg.Title();
-                Date.Text = chg.Date.ToShortDateString();
-                OldName.Text = chg.OldNote.Name + " (" + Mayor.FriendlyNoteTypeName(chg.OldNote.Type) + ")";
-                OldNote.Text = chg.OldNote.Grade;
+                OldName.Text = chg.Old.Name + " (" + chg.Old.FriendlyType + ")";
+                OldNote.Text = chg.Old.Grade;
             }
             if (chg.Type == ChangeType.Modified)
             {
-                Title.Text = chg.Title();
-                Date.Text = chg.Date.ToShortDateString();
-                OldName.Text = chg.OldNote.Name + " (" + Mayor.FriendlyNoteTypeName(chg.OldNote.Type) + ")";
-                OldNote.Text = chg.OldNote.Grade;
-                NewName.Text = chg.NewNote.Name + " (" + Mayor.FriendlyNoteTypeName(chg.NewNote.Type) + ")";
-                NewNote.Text = chg.NewNote.Grade;
+                OldName.Text = chg.Old.Name + " (" + chg.Old.FriendlyType + ")";
+                OldNote.Text = chg.Old.Grade;
+                NewName.Text = chg.New.Name + " (" + chg.New.FriendlyType + ")";
+                NewNote.Text = chg.New.Grade;
             }
             this.Left = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;

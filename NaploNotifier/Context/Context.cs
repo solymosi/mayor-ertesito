@@ -8,6 +8,8 @@ namespace NaploNotifier
 {
     public partial class Context : ApplicationContext
     {
+        public const int UpdateFrequency = 10;
+
         System.Timers.Timer UpdateTimer;
         WindowsFormsSynchronizationContext MainSynchronizationContext;
 
@@ -23,6 +25,7 @@ namespace NaploNotifier
 
             RunUpdate();
 
+            UpdateTimer = new System.Timers.Timer(UpdateFrequency * 1000);
             UpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(CheckTimer_Tick);
             UpdateTimer.Start();
         }

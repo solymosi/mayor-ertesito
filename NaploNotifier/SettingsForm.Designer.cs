@@ -36,7 +36,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.User = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.Pass = new System.Windows.Forms.TextBox();
+            this.Password = new System.Windows.Forms.TextBox();
             this.Save = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -114,14 +114,14 @@
             this.label5.TabIndex = 7;
             this.label5.Text = "Jelszó:";
             // 
-            // Pass
+            // Password
             // 
-            this.Pass.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Pass.Location = new System.Drawing.Point(144, 132);
-            this.Pass.Name = "Pass";
-            this.Pass.Size = new System.Drawing.Size(201, 20);
-            this.Pass.TabIndex = 8;
-            this.Pass.UseSystemPasswordChar = true;
+            this.Password.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Password.Location = new System.Drawing.Point(144, 132);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(201, 20);
+            this.Password.TabIndex = 8;
+            this.Password.UseSystemPasswordChar = true;
             // 
             // Save
             // 
@@ -155,7 +155,7 @@
             this.ClientSize = new System.Drawing.Size(399, 206);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Save);
-            this.Controls.Add(this.Pass);
+            this.Controls.Add(this.Password);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.User);
@@ -188,6 +188,6 @@
         private System.Windows.Forms.Button Cancel;
         public System.Windows.Forms.TextBox Domain;
         public System.Windows.Forms.TextBox User;
-        public System.Windows.Forms.TextBox Pass;
+        public System.Windows.Forms.TextBox Password;
     }
 }
