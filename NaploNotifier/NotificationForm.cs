@@ -19,7 +19,7 @@ namespace NaploNotifier
         const int WS_EX_NOACTIVATE = 0x8000000;
         const int WS_EX_TOOLWINDOW = 0x00000080;
 
-        public List<NoteChange> Changes = new List<NoteChange>();
+        public List<Change> Changes = new List<Change>();
         int Melyik = 0;
 
         [DllImport("user32")]
@@ -63,7 +63,7 @@ namespace NaploNotifier
             Melyik++;
         }
 
-        private void ShowChange(NoteChange chg)
+        private void ShowChange(Change chg)
         {
             this.Height = (chg.Type == ChangeType.Modified ? 115 : 82);
             this.NewName.Visible = (chg.Type == ChangeType.Modified);

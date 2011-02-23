@@ -8,7 +8,7 @@ using System.Net;
 
 namespace NaploNotifier
 {
-    public class MayorSession
+    public class Session
     {
         public const string UserAgent = "Solymosi MaYoR Notifier v0.1";
 

@@ -35,7 +35,18 @@ namespace NaploNotifier
         void RunUpdateThread(object Parameter)
         {
             UpdateSynchronizationContext = new WindowsFormsSynchronizationContext();
-            Mayor.RunUpdate((bool)Parameter);
+            try
+            {
+                Mayor.RunUpdate((bool)Parameter);
+            }
+            catch (LoginFailedException)
+            {
+                Tools.ErrorMessage("Nem sikerült ellenőrizni a jegyedidet, mert a megadott felhasználónév vagy jelszó hibás. Adj meg egy érvényes felhasználónév/jelszó párost a beállítások menüben majd próbáld újra!");
+            }
+            catch
+            {
+                Tools.ErrorMessage("Nem sikerült ellenőrizni a jegyedidet. Győződj meg arról, hogy van aktív internetkapcsolat és megfelelő a Beállítások menüpontban megadott webes cím.");
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace NaploNotifier
 {
@@ -76,16 +77,9 @@ namespace NaploNotifier
             RemoveMenu();
         }
 
-        void ShowRecentChanges(object sender, EventArgs e)
+        void UpdateCallback(List<Change> Changes)
         {
-            Mayor.SortChanges();
-            List<NoteChange> Recent = Mayor.Changes.GetRange(0, Math.Min(5, Mayor.Changes.Count));
-            ShowNotification(Recent);
-        }
-
-        void UpdateCallback(List<NoteChange> Changes)
-        {
-            if (Changes.Count > 0) { PlayNotificationSound(); }
+            if (Changes.Count > 0) { Tools.PlayNotificationSound(); }
             ShowNotification(Changes);
             Mayor.SaveChanges();
         }

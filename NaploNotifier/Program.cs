@@ -39,7 +39,7 @@ namespace NaploNotifier
 
         public static void Crashed(Exception Exception)
         {
-            Context.ErrorMessage("Jaj! A MaYoR értesítő lefagyott.\r\nRészletek kockáknak:\r\n" + Exception.Message + "\r\n" + Exception.StackTrace);
+            Tools.ErrorMessage("Jaj! A MaYoR értesítő lefagyott.\r\nRészletek kockáknak:\r\n" + Exception.Message + "\r\n" + Exception.StackTrace);
             Program.Exit();
         }
     }

@@ -66,12 +66,16 @@
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\Icon.cs" />
     <Compile Include="Context\Data.cs" />
-    <Compile Include="Context\Misc.cs" />
     <Compile Include="Context\Notification.cs" />
     <Compile Include="Context\Settings.cs" />
     <Compile Include="Context\Update.cs" />
-    <Compile Include="Mayor.cs" />
-    <Compile Include="MayorSession.cs" />
+    <Compile Include="Mayor\Change.cs" />
+    <Compile Include="Mayor\Mayor.cs" />
+    <Compile Include="Mayor\Note.cs" />
+    <Compile Include="Mayor\Serialization.cs" />
+    <Compile Include="Mayor\Session.cs" />
+    <Compile Include="Mayor\Settings.cs" />
+    <Compile Include="Mayor\Subject.cs" />
     <Compile Include="NotificationForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -10,7 +10,7 @@ namespace NaploNotifier
     {
         public NotificationForm Notification;
 
-        void ShowNotification(List<NoteChange> Changes)
+        void ShowNotification(List<Change> Changes)
         {
             MainSynchronizationContext.Post(new SendOrPostCallback(delegate
             {

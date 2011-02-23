@@ -23,7 +23,7 @@ namespace NaploNotifier
             try { Mayor.SaveSettings(); }
             catch (Exception e)
             {
-                ErrorMessage("Nem sikerült elmenteni a beállításokat:\r\n" + e.Message);
+                Tools.ErrorMessage("Nem sikerült elmenteni a beállításokat:\r\n" + e.Message);
                 Program.Exit();
             }
         }
