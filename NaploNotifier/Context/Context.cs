@@ -10,12 +10,8 @@ using Microsoft.Win32;
 
 namespace NaploNotifier
 {
-    class Context : ApplicationContext
+    public partial class Context : ApplicationContext
     {
-        NotifyIcon Icon = new NotifyIcon();
-        ToolStripMenuItem CheckNow;
-        ToolStripMenuItem LastTen;
-
         System.Timers.Timer CheckTimer = new System.Timers.Timer(120000);
 
         WindowsFormsSynchronizationContext SC;
@@ -31,50 +27,6 @@ namespace NaploNotifier
                 catch { Environment.Exit(0); }
             }
 
-            this.CheckNow = new ToolStripMenuItem("", null, new EventHandler(delegate { ThreadPool.QueueUserWorkItem(new WaitCallback(delegate { Mayor.UpdateOsztalyozo(); })); }));
-            this.LastTen = new ToolStripMenuItem("", null, ShowRecentChanges);
-            this.ThreadExit += new EventHandler(Context_ThreadExit);
-            ToolStripMenuItem RegularCheckEnabled = new ToolStripMenuItem("Automatikus ellenőrzés");
-            RegularCheckEnabled.Click += new EventHandler(delegate
-            {
-                Mayor.Settings.CheckAutomatically = !Mayor.Settings.CheckAutomatically;
-                RegularCheckEnabled.Checked = Mayor.Settings.CheckAutomatically;
-                Mayor.SaveSettings();
-            });
-            RegularCheckEnabled.Checked = Mayor.Settings.CheckAutomatically;
-            ToolStripMenuItem OpenNaplo = new ToolStripMenuItem("Napló megnyitása", null, new EventHandler(OpenWebsite));
-            OpenNaplo.Font = new System.Drawing.Font(OpenNaplo.Font, System.Drawing.FontStyle.Bold);
-
-            Icon.Icon = Properties.Resources.mayor;
-            Icon.Text = "MaYoR értesítő";
-            Icon.DoubleClick += new EventHandler(OpenWebsite);
-
-            Icon.ContextMenuStrip = new ContextMenuStrip();
-            Icon.ContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(ContextMenuStrip_Opening);
-            Icon.ContextMenuStrip.RenderMode = ToolStripRenderMode.System;
-            Icon.ContextMenuStrip.Items.Add(OpenNaplo);
-            Icon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-            Icon.ContextMenuStrip.Items.Add(LastTen);
-            Icon.ContextMenuStrip.Items.Add(CheckNow);
-            Icon.ContextMenuStrip.Items.Add(RegularCheckEnabled);
-            Icon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-            Icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Beállítások...", null, new EventHandler(delegate
-            {
-                try
-                {
-                    this.EditSettings();
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
-                    {
-                        CheckTimer_Tick(null, null);
-                    }));
-                }
-                catch { }
-            })));
-            Icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Kilépés                                ", null, new EventHandler(delegate
-            {
-                this.ExitThread();
-            })));
-            Icon.Visible = true;
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
             {

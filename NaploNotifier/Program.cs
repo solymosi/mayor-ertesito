@@ -6,9 +6,8 @@ namespace NaploNotifier
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        static public Context Context;
+
         [STAThread]
         static void Main()
         {
@@ -24,7 +23,8 @@ namespace NaploNotifier
         {
             try
             {
-                Application.Run(new Context());
+                Program.Context = new Context();
+                Application.Run(Program.Context);
             }
             catch (Exception Exception)
             {
