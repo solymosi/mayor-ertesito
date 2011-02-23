@@ -13,39 +13,32 @@ namespace NaploNotifier
 
         public static void SaveSettings()
         {
-            SerializeToFile<Settings>(Settings, "Settings.data");
+            Tools.Serialize<Settings>(Settings, SettingsFileName);
         }
 
         public static void LoadSettings()
         {
-            Settings = DeserializeFromFile<Settings>("Settings.data");
+            Settings = Tools.Deserialize<Settings>(SettingsFileName);
         }
 
         public static void SaveNotes()
         {
-            SerializeToFile<List<Note>>(Notes, "Osztalyozo.data");
+            Tools.Serialize<List<Note>>(Notes, NotesFileName);
         }
 
         public static void LoadNotes()
         {
-            Notes = DeserializeFromFile<List<Note>>("Osztalyozo.data");
+            Notes = Tools.Deserialize<List<Note>>(NotesFileName);
         }
 
         public static void SaveChanges()
         {
-            SortChanges();
-            if (Changes.Count > 20)
-            {
-                Changes = Changes.GetRange(0, 20);
-            }
-            SerializeToFile<List<NoteChange>>(Changes, "Valtozasok.data");
+            Tools.Serialize<List<Change>>(RecentChanges, ChangesFileName);
         }
-
-
 
         public static void LoadChanges()
         {
-            Changes = DeserializeFromFile<List<NoteChange>>("Valtozasok.data");
+            Changes = Tools.Deserialize<List<Change>>(ChangesFileName);
         }
 
     }
