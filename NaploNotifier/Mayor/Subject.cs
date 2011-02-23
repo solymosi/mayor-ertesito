@@ -19,18 +19,18 @@ namespace NaploNotifier
 
         public static Subject Parse(HtmlNode Node)
         {
-            Subject s = new Subject(Node.SelectSingleNode("th").InnerText);
-            foreach (HtmlNode note in Mayor.SelectNodes(Node, "td/a"))
+            Subject Subject = new Subject(Node.SelectSingleNode("th").InnerText);
+            foreach (HtmlNode NoteNode in Mayor.SelectNodes(Node, "td/a"))
             {
                 try
                 {
-                    Note n = Note.Parse(note);
-                    n.Subject = s;
-                    s.Notes.Add(n);
+                    Note Note = Note.Parse(NoteNode);
+                    Note.Subject = Subject;
+                    Subject.Notes.Add(Note);
                 }
                 catch { }
             }
-            return s;
+            return Subject;
         }
 
         public override string ToString()
