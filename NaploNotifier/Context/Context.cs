@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using System.Net.Mail;
-using System.Diagnostics;
-using System.Threading;
-using System.ComponentModel;
-using Microsoft.Win32;
 
 namespace NaploNotifier
 {
@@ -55,7 +50,12 @@ namespace NaploNotifier
 
         void Settings_Click(object sender, EventArgs e)
         {
-            EditSettings();
+            try
+            {
+                EditSettings();
+                RunUpdate();
+            }
+            catch { }
         }
 
         void Exit_Click(object sender, EventArgs e)

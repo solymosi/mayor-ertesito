@@ -34,6 +34,7 @@ namespace NaploNotifier
 
         void RunUpdateThread(object Parameter)
         {
+            UpdateSynchronizationContext = new WindowsFormsSynchronizationContext();
             Mayor.RunUpdate((bool)Parameter);
         }
     }

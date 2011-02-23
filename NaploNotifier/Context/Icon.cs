@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace NaploNotifier
 {
@@ -35,6 +36,7 @@ namespace NaploNotifier
             mExit = new ToolStripMenuItem("Kilépés                                ", null, new EventHandler(Exit_Click));
 
             Menu.RenderMode = ToolStripRenderMode.System;
+            Menu.Opening += new CancelEventHandler(ContextMenuStrip_Opening);
 
             Menu.Items.Add(mOpenNaplo);
             Menu.Items.Add(new ToolStripSeparator());
@@ -48,37 +50,6 @@ namespace NaploNotifier
             Icon.DoubleClick += new EventHandler(OpenNaplo_Click);
             Icon.ContextMenuStrip = Menu;
             SetIconStatus("");
-
-            this.CheckNow = new ToolStripMenuItem("", null, new EventHandler(delegate { ThreadPool.QueueUserWorkItem(new WaitCallback(delegate { Mayor.UpdateOsztalyozo(); })); }));
-            this.LastTen = new ToolStripMenuItem("", null, ShowRecentChanges);
-            this.ThreadExit += new EventHandler(Context_ThreadExit);
-            ToolStripMenuItem RegularCheckEnabled = new ToolStripMenuItem("Automatikus ellenőrzés");
-            RegularCheckEnabled.Click += new EventHandler(delegate
-            {
-                Mayor.Settings.AutoUpdate = !Mayor.Settings.AutoUpdate;
-                RegularCheckEnabled.Checked = Mayor.Settings.AutoUpdate;
-                Mayor.SaveSettings();
-            });
-
-            Icon.ContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(ContextMenuStrip_Opening);
-
-            Icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Beállítások...", null, new EventHandler(delegate
-            {
-                try
-                {
-                    this.EditSettings();
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
-                    {
-                        CheckTimer_Tick(null, null);
-                    }));
-                }
-                catch { }
-            })));
-            Icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Kilépés                                ", null, new EventHandler(delegate
-            {
-                this.ExitThread();
-            })));
-            Icon.Visible = true;
         }
 
         void ContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
