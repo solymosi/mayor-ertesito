@@ -44,12 +44,15 @@ namespace NaploNotifier
             Menu.Items.Add(mCheckNow);
             Menu.Items.Add(mAutoCheck);
             Menu.Items.Add(new ToolStripSeparator());
+            Menu.Items.Add(mSettings);
             Menu.Items.Add(mExit);
 
             Icon.Icon = Properties.Resources.MayorIcon;
             Icon.DoubleClick += new EventHandler(OpenNaplo_Click);
             Icon.ContextMenuStrip = Menu;
             SetIconStatus("");
+
+            Icon.Visible = true;
         }
 
         void ContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)

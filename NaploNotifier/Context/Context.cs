@@ -23,6 +23,7 @@ namespace NaploNotifier
 
             Mayor.Updated += new Mayor.UpdateDelegate(UpdateCallback);
 
+            InstallMenu();
             RunUpdate();
 
             UpdateTimer = new System.Timers.Timer(UpdateFrequency * 1000);
