@@ -1,0 +1,27 @@
+h1. MaYoR értesítő
+
+p. A program egy Windows alkalmazás, amely a háttérben futva rendszeresen ellenőrzi az osztályzataidat, és azonnal figyelmeztet, amint új jegyet kapsz, vagy módosítják/törlik egy meglévő jegyedet.
+
+h2. Telepítés
+
+# Töltsd le a Releases mappából a Current.zip fájlt
+# Bontsd ki egy tetszőleges helyre a merevlemezeden
+# Futtasd a MayorNotify.exe-t
+# Add meg a napló szerver elérhetőségét és a bejelentkezési adataidat
+# Készen vagy
+
+h2. A program menüje
+
+A program ikonját az óra melletti értesítési területen találod. Kattints rá duplán a napló webes felületének megnyitásához. Jobb gombbal való kattintás esetén megjelenik egy menü, amelyben az alábbi lehetőségek közül választhatsz:
+
+* *Napló megnyitása* - a napló webes felületének megnyitása
+* *Legutóbbi változások* - megjeleníti az osztályozó naplóban észlelt utolsó 5 változást
+* *Ellenőrzés most* - azonnal ellenőrzi, hogy van-e változás az osztályozó naplóban
+* *Automatikus ellenőrzés* - ha be van kapcsolva, 5 percenként automatikusan ellenőrzi a naplót
+* *Beállítások* - a napló címe és a bejelentkezési adataid módosítása
+* *Kilépés*
+
+A beállítások ablakban megadhatod, hogy a program automatikusan induljon el, amikor bejelentkezel. Ezt érdemes bekapcsolni.
+
+_(C) Solymosi Máté 2011_
+_Released under GNU GPL_
