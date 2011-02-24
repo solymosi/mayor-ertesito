@@ -2,6 +2,8 @@ h1. MaYoR értesítő
 
 p. A program egy Windows alkalmazás, amely a háttérben futva rendszeresen ellenőrzi az osztályzataidat, és azonnal figyelmeztet, amint új jegyet kapsz, vagy módosítják/törlik egy meglévő jegyedet.
 
+p. A program csak diák felhasználónévvel működik, szülői felhasználónévvel és jelszóval (még) nem tud belépni a naplóba.
+
 h2. Telepítés
 
 # Töltsd le a Releases mappából a Current.zip fájlt

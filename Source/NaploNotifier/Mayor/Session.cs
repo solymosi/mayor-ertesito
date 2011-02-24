@@ -10,7 +10,7 @@ namespace NaploNotifier
 {
     public class Session
     {
-        public const string UserAgent = "Solymosi MaYoR Notifier v0.1";
+        public const string UserAgent = "MaYoR Notifier";
 
         public string SessionID = "";
         public CookieContainer Cookies = new CookieContainer();
