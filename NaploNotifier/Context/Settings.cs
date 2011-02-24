@@ -10,7 +10,11 @@ namespace NaploNotifier
     {
         void LoadSettings()
         {
-            try { Mayor.LoadSettings(); }
+            try
+            {
+                Mayor.LoadSettings();
+                if (!Mayor.Settings.Present) { throw new Exception(); }
+            }
             catch
             {
                 try { EditSettings(); }
@@ -33,12 +37,17 @@ namespace NaploNotifier
             SettingsForm Form = new SettingsForm();
             Form.Domain.Text = Mayor.Settings.ServerDomain;
             Form.User.Text = Mayor.Settings.User;
+            Form.AutoStart.Checked = Mayor.Settings.Present ? Mayor.Settings.AutoStart : true;
 
             if (Form.ShowDialog() == DialogResult.OK)
             {
                 Mayor.Settings.ServerDomain = Form.Domain.Text;
                 Mayor.Settings.User = Form.User.Text;
-                Mayor.Settings.Password = Form.Password.Text;
+                if (Mayor.Settings.Password == "" || Form.Password.Text != "")
+                {
+                    Mayor.Settings.Password = Form.Password.Text;
+                }
+                Mayor.Settings.AutoStart = Form.AutoStart.Checked;
                 SaveSettings();
             }
             else { throw new OperationCanceledException(); }

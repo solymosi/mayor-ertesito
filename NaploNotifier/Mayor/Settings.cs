@@ -33,5 +33,6 @@ namespace NaploNotifier
                 }
             }
         }
+        public bool Present { get { return this.Password != "" && this.User != "" && this.ServerDomain != ""; } }
     }
 }

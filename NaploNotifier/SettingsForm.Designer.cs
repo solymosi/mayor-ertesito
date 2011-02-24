@@ -201,6 +201,6 @@
         public System.Windows.Forms.TextBox Domain;
         public System.Windows.Forms.TextBox User;
         public System.Windows.Forms.TextBox Password;
-        private System.Windows.Forms.CheckBox AutoStart;
+        public System.Windows.Forms.CheckBox AutoStart;
     }
 }
