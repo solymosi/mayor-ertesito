@@ -47,16 +47,16 @@ namespace NaploNotifier
                 NewNotes.AddRange(Subject.Notes);
             }
 
-            /*int x = new Random().Next(1, 3);
+            /* int x = new Random().Next(1, 3);
                 
             if (x == 1)
             {
-                notes.RemoveAt(0);
+                NewNotes.RemoveAt(0);
                 Note n = new Note(11111, "4/5", "TESZT", NoteType.Kicsi);
-                n.Subject = subjects[3];
-                notes.Add(n);
-                notes[1].Grade = "3/4";
-            }*/
+                n.Subject = NewSubjects[3];
+                NewNotes.Add(n);
+                NewNotes[1].Grade = "3/4";
+            } */
 
             if (!InitialUpdate)
             {

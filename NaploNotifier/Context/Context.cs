@@ -8,7 +8,7 @@ namespace NaploNotifier
 {
     public partial class Context : ApplicationContext
     {
-        public const int UpdateFrequency = 10;
+        public const int UpdateFrequency = 120;
 
         System.Timers.Timer UpdateTimer;
         WindowsFormsSynchronizationContext MainSynchronizationContext;

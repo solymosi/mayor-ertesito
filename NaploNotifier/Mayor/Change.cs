@@ -18,7 +18,7 @@ namespace NaploNotifier
                 switch (this.Type)
                 {
                     case ChangeType.Added: return "Új " + this.New.Subject.Name + " jegyet kaptál";
-                    case ChangeType.Deleted: return "Törölve lett egy " + this.New.Subject.Name + " jegyed";
+                    case ChangeType.Deleted: return "Törölve lett egy " + this.Old.Subject.Name + " jegyed";
                     case ChangeType.Modified: return "Megváltozott egy " + this.New.Subject.Name + " jegyed";
                 }
                 throw new ArgumentException();

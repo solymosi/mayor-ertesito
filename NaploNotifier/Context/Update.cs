@@ -12,16 +12,14 @@ namespace NaploNotifier
         WindowsFormsSynchronizationContext UpdateSynchronizationContext;
         Thread UpdateThread;
 
-        public bool Updating { get { return this.UpdateThread != null && this.UpdateThread.ThreadState == ThreadState.Running; } }
+        public bool Updating { get { return this.UpdateThread != null && (this.UpdateThread.ThreadState == ThreadState.Running || this.UpdateThread.ThreadState == ThreadState.Background); } }
 
         public void RunUpdate() { RunUpdate(false); }
         public void RunUpdate(bool InitialUpdate)
         {
-            if (this.UpdateThread != null && this.UpdateThread.ThreadState == ThreadState.Running)
-            {
-                throw new InvalidOperationException("A frissítés már folyamatban van.");
-            }
+            if (this.Updating) { return; }
             UpdateThread = new Thread(new ParameterizedThreadStart(RunUpdateThread));
+            UpdateThread.Name = "Update Thread";
             UpdateThread.IsBackground = true;
             UpdateThread.Priority = ThreadPriority.Lowest;
             UpdateThread.Start((object)InitialUpdate);
