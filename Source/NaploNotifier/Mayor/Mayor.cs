@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using System.Linq;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.IO;
@@ -73,7 +72,12 @@ namespace NaploNotifier
 
             foreach (Note CurrentNote in Notes)
             {
-                if (NewNotes.Where(new Func<Note, bool>(delegate(Note N) { return CurrentNote.ID == N.ID; })).ToList().Count == 0)
+                bool Found = false;
+                foreach (Note N in NewNotes)
+                {
+                    if (CurrentNote.ID == N.ID) { Found = true; }
+                }
+                if (!Found)
                 {
                     NewChanges.Add(new Change(CurrentNote, null));
                 }
@@ -81,7 +85,12 @@ namespace NaploNotifier
 
             foreach (Note CurrentNote in NewNotes)
             {
-                if (Notes.Where(new Func<Note, bool>(delegate(Note N) { return CurrentNote.ID == N.ID; })).ToList().Count == 0)
+                bool Found = false;
+                foreach (Note N in Notes)
+                {
+                    if (CurrentNote.ID == N.ID) { Found = true; }
+                }
+                if (!Found)
                 {
                     NewChanges.Add(new Change(null, CurrentNote));
                 }

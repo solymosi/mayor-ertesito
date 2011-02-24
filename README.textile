@@ -4,6 +4,11 @@ p. A program egy Windows alkalmazás, amely a háttérben futva rendszeresen ell
 
 p. A program csak diák felhasználónévvel működik, szülői felhasználónévvel és jelszóval (még) nem tud belépni a naplóba.
 
+h2. Rendszerkövetelmények
+
+* Windows XP/Vista/7
+* .NET keretrendszer 2.0 ("innen letölthető":http://www.microsoft.com/downloads/details.aspx?FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5)
+
 h2. Telepítés
 
 # Töltsd le a Releases mappából a Current.zip fájlt
