@@ -30,7 +30,7 @@ namespace NaploNotifier
             if (Password.Text.Trim() == "") { Errors.Add("Nem adtad meg a jelszavadat."); }
             if (Errors.Count > 0)
             {
-                MessageBox.Show("Az alábbi hibák léptek fel a beállítások mentése során:\r\n\r\n" + string.Join("\r\n", Errors.ToArray()), Application.ProductName, 0, MessageBoxIcon.Error);
+                Tools.ErrorMessage("Az alábbi hibák léptek fel a beállítások mentése során:\r\n\r\n" + string.Join("\r\n", Errors.ToArray()));
                 return;
             }
             this.DialogResult = DialogResult.OK;

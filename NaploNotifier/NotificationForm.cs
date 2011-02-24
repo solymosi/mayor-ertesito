@@ -20,7 +20,7 @@ namespace NaploNotifier
         const int WS_EX_TOOLWINDOW = 0x00000080;
 
         public List<Change> Changes = new List<Change>();
-        int Melyik = 0;
+        int CurrentNote = 0;
 
         [DllImport("user32")]
         static extern bool AnimateWindow(IntPtr hwnd, int time, int flags);
@@ -34,9 +34,9 @@ namespace NaploNotifier
         {
             get
             {
-                CreateParams baseParams = base.CreateParams;
-                baseParams.ExStyle |= (WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW);
-                return baseParams;
+                CreateParams BaseParams = base.CreateParams;
+                BaseParams.ExStyle |= (WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW);
+                return BaseParams;
             }
         }
 
@@ -54,39 +54,34 @@ namespace NaploNotifier
         private void DisplayTimer_Tick(object sender, EventArgs e)
         {
             
-            if (Melyik == Changes.Count)
+            if (CurrentNote == Changes.Count)
             {
                 this.Close();
                 return;
             }
-            ShowChange(Changes[Melyik]);
-            Melyik++;
+            ShowChange(Changes[CurrentNote]);
+            CurrentNote++;
         }
 
-        private void ShowChange(Change chg)
+        private void ShowChange(Change Change)
         {
-            this.Height = (chg.Type == ChangeType.Modified ? 115 : 82);
-            this.NewName.Visible = (chg.Type == ChangeType.Modified);
-            this.NewNote.Visible = (chg.Type == ChangeType.Modified);
-            Title.Text = chg.Title;
-            Date.Text = chg.Date.ToShortDateString();
-            if (chg.Type == ChangeType.Added)
+            this.Height = (Change.Type == ChangeType.Modified ? 115 : 82);
+            this.NewName.Visible = (Change.Type == ChangeType.Modified);
+            this.NewNote.Visible = (Change.Type == ChangeType.Modified);
+
+            Note First = Change.Type == ChangeType.Added ? Change.New : Change.Old;
+            Note Second = Change.Type == ChangeType.Modified ? Change.New : null;
+
+            Title.Text = Change.Title;
+            Date.Text = Change.Date.ToShortDateString();
+            OldName.Text = First.Name + " (" + First.FriendlyType + ")";
+            OldNote.Text = First.Grade;
+            if (Change.Type == ChangeType.Modified)
             {
-                OldName.Text = chg.New.Name + " (" + chg.New.FriendlyType + ")";
-                OldNote.Text = chg.New.Grade;
+                NewName.Text = Second.Name + " (" + Second.FriendlyType + ")";
+                NewNote.Text = Second.Grade;
             }
-            if (chg.Type == ChangeType.Deleted)
-            {
-                OldName.Text = chg.Old.Name + " (" + chg.Old.FriendlyType + ")";
-                OldNote.Text = chg.Old.Grade;
-            }
-            if (chg.Type == ChangeType.Modified)
-            {
-                OldName.Text = chg.Old.Name + " (" + chg.Old.FriendlyType + ")";
-                OldNote.Text = chg.Old.Grade;
-                NewName.Text = chg.New.Name + " (" + chg.New.FriendlyType + ")";
-                NewNote.Text = chg.New.Grade;
-            }
+
             this.Left = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
         }
