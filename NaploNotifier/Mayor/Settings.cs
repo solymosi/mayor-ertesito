@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace NaploNotifier
 {
@@ -18,5 +20,18 @@ namespace NaploNotifier
             set { EncryptedPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(value)); }
         }
         public bool AutoUpdate = true;
+        public bool AutoStart
+        {
+            get { return (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run", "Mayor", null) != null); }
+            set
+            {
+                if (value) { Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run", "Mayor", Application.ExecutablePath); }
+                else
+                {
+                    try { Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true).DeleteValue("Mayor"); }
+                    catch { }
+                }
+            }
+        }
     }
 }

@@ -39,6 +39,7 @@
             this.Password = new System.Windows.Forms.TextBox();
             this.Save = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
+            this.AutoStart = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // TitleLabel
@@ -126,9 +127,9 @@
             // Save
             // 
             this.Save.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Save.Location = new System.Drawing.Point(104, 171);
+            this.Save.Location = new System.Drawing.Point(104, 199);
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(92, 23);
+            this.Save.Size = new System.Drawing.Size(92, 25);
             this.Save.TabIndex = 9;
             this.Save.Text = "Mentés";
             this.Save.UseVisualStyleBackColor = true;
@@ -138,13 +139,23 @@
             // 
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Cancel.Location = new System.Drawing.Point(202, 171);
+            this.Cancel.Location = new System.Drawing.Point(202, 199);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(92, 23);
+            this.Cancel.Size = new System.Drawing.Size(92, 25);
             this.Cancel.TabIndex = 10;
             this.Cancel.Text = "Mégse";
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            // 
+            // AutoStart
+            // 
+            this.AutoStart.AutoSize = true;
+            this.AutoStart.Location = new System.Drawing.Point(15, 164);
+            this.AutoStart.Name = "AutoStart";
+            this.AutoStart.Size = new System.Drawing.Size(229, 17);
+            this.AutoStart.TabIndex = 11;
+            this.AutoStart.Text = "Automatikus indítás, amikor bejelentkezem";
+            this.AutoStart.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -152,7 +163,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancel;
-            this.ClientSize = new System.Drawing.Size(399, 206);
+            this.ClientSize = new System.Drawing.Size(399, 236);
+            this.Controls.Add(this.AutoStart);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.Password);
@@ -189,5 +201,6 @@
         public System.Windows.Forms.TextBox Domain;
         public System.Windows.Forms.TextBox User;
         public System.Windows.Forms.TextBox Password;
+        private System.Windows.Forms.CheckBox AutoStart;
     }
 }

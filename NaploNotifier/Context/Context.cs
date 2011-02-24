@@ -21,10 +21,13 @@ namespace NaploNotifier
             LoadSettings();
             LoadData();
 
-            Mayor.Updated += new Mayor.UpdateDelegate(UpdateCallback);
-
             InstallMenu();
-            RunUpdate();
+
+            Mayor.Updated += new Mayor.UpdateDelegate(UpdateCallback);
+            if (Mayor.Settings.AutoUpdate)
+            {
+                RunUpdate();
+            }
 
             UpdateTimer = new System.Timers.Timer(UpdateFrequency * 1000);
             UpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(CheckTimer_Tick);
