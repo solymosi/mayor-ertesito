@@ -47,15 +47,15 @@ namespace NaploNotifier
                 NewNotes.AddRange(Subject.Notes);
             }
 
-            /* int x = new Random().Next(1, 3);
-                
-            if (x == 1)
+            // Make some changes on a random basis, for testing
+
+            /* if (new Random().Next(1, 3) == 1)
             {
                 NewNotes.RemoveAt(0);
-                Note n = new Note(11111, "4/5", "TESZT", NoteType.Kicsi);
-                n.Subject = NewSubjects[3];
-                NewNotes.Add(n);
-                NewNotes[1].Grade = "3/4";
+                Note TestNote = new Note(1, "3/4", "Teszt dolgozat", NoteType.Dolgozat);
+                TestNote.Subject = NewSubjects[0];
+                NewNotes.Add(TestNote);
+                NewNotes[1].Grade = "2";
             } */
 
             if (!InitialUpdate)
