@@ -80,19 +80,6 @@ namespace NaploNotifier
             return r;
         }
 
-        public static string GetTextFromStream(Stream s)
-        {
-            string r = "";
-            byte[] b = new byte[256];
-            int c = s.Read(b, 0, 256);
-            while (c > 0)
-            {
-                r += Encoding.UTF8.GetString(b);
-                c = s.Read(b, 0, 256);
-            }
-            return r;
-        }
-
         public static bool SessionExists(WebResponse Response)
         {
             return Response.ResponseUri.ToString().Contains("policy=private");
